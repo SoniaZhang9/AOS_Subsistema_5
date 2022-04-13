@@ -1,0 +1,79 @@
+openapi: 3.0.0
+
+info:
+  title: 'Subsistema 5: Gestión de facturas de un taller'
+  description: '[UPM] AOS - Grupo 94'
+  contact: 
+    name: 'Sonia Zhang Chen'
+    url: https://github.com/SoniaZhang9
+    email: sonia.zhang@alumnos.upm.es
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  version: 1.0.0
+  
+servers: 
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/SoniaZhang9/PracticaAOS-Subsistema-5/1.0.0
+  - url: http://127.0.0.1:80/api/v1
+  
+tags:
+  - name: 'Factura'
+    description: Factura de los clientes por los trabajos realizados
+  
+paths:
+  /factura:
+    get:
+      summary: Obtiene todas las facturas del sistema
+      responses:
+        200:
+          description: Lista de facturas disponible
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  facturas:
+                    description: array de facturas
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Factura'
+                  examples:
+                    facturasExamples:
+                      $ref: '#/components/examples/facturas'
+          
+
+# Definición de componentes #
+components:
+  schemas:
+    Factura:
+      $ref: './schemas/Factura.yaml#/Factura'
+    HTTP_Problem:
+      $ref: './schemas/HTTP_Problem.yaml#/HTTP_Problem'
+  headers:
+    ETag:
+      description: Entity Tag (identificador único proporcionado para validación de caché)
+      schema:
+        type: string
+        pattern: "[0-9a-f]*"
+        # https://github.com/marak/Faker.js#api-methods
+        x-faker: random.uuid
+        example:
+          33a64df551425fcc
+    Allow:
+      description: Lista de métodos HTTP soportados
+      schema:
+        type: string
+      example: GET,DELETE,PUT,OPTIONS
+    Location:
+      description: '`URI` del nuevo recurso'
+      schema:
+        type: string
+        format: uri
+        x-faker: internet.url
+        example:
+          https://example.com/api/v1/factura/1398
