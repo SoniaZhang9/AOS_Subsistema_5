@@ -60,7 +60,7 @@ Factura:
             rel: lista de todos los trabajos
           self:
             href: api/v1/trabajo/1890
-            rel: obtenerFactura modificarFactura eliminarFactura
+            rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
     importe: 300
     links:
       parent:

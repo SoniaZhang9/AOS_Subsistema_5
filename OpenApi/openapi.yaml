@@ -4,7 +4,7 @@ openapi: 3.0.0
 info:
   title: 'Subsistema 5: Gestión de facturas de un taller'
   description: '[UPM] AOS - Grupo 94'
-  contact: 
+  contact:
     name: 'Sonia Zhang Chen'
     url: https://github.com/SoniaZhang9
     email: sonia.zhang@alumnos.upm.es
@@ -12,23 +12,26 @@ info:
     name: MIT
     url: 'https://opensource.org/licenses/MIT'
   version: 1.0.0
-  
-servers: 
-  - url: http://127.0.0.1:80/api/v1
+
+servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/SoniaZhang9/PracticaAOS-Subsistema-5/1.0.0
+  - url: http://127.0.0.1:80/api/v1
 
-  
 tags:
-  - name: 'Factura'
-    description: Factura de los clientes por los trabajos realizados
-    
+  - name: '🧾 Factura'
+    description: Facturas de los clientes por los trabajos realizados
+  - name: '🔍 Búsqueda facturas'
+    description: Búsqueda de facturas que cumplan unos parámetros específicos
+  - name: '✏ Factura concreta'
+    description: Operaciones sobre una factura concreta
+
 paths:
   /factura:
     get:
       tags:
-        - 'Factura'
+        - '🧾 Factura'
       summary: Obtiene todas las facturas del sistema
       description: |
         La siguiente tabla define los códigos de estado que puede devolver este endpoint
@@ -52,7 +55,7 @@ paths:
                   facturas:
                     description: array de facturas
                     type: array
-                    items: 
+                    items:
                       $ref: '#/components/schemas/Factura'
               examples:
                 facturasExamples:
@@ -61,7 +64,7 @@ paths:
           $ref: '#/components/responses/Response_404'
     post:
       tags:
-        - 'Factura'
+        - '🧾 Factura'
       summary: Crea una nueva factura de un cliente cuando todos sus trabajos están terminados
       description: |
         La siguiente tabla define los códigos de estado que puede devolver este endpoint
@@ -85,10 +88,10 @@ paths:
                 $ref: '#/components/schemas/Factura'
         422:
           $ref: '#/components/responses/Response_422'
-          
+
     options:
-      tags: 
-        - Factura
+      tags:
+        - '🧾 Factura'
       summary: Proporciona la lista de los métodos HTTP soportados por esta ruta.
       description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
       operationId: grupo_94_AOS_coptions
@@ -98,21 +101,21 @@ paths:
           headers:
             Allow:
               $ref: '#/components/headers/Allow'
-              
+
   /factura/{idFactura}:
     parameters:
       - $ref: '#/components/parameters/idFactura'
     get:
       summary: Obtiene una factura identificado por su `idFactura`
-      description: |        
+      description: |
         La siguiente tabla define los códigos de estado que puede devolver este endpoint
         
         | Status Code      | Descripción | Motivo                             |
         | ---------------- | ------------| -----------------------------------|
         | **200**          | OK          | Si la factura existe                 |
         | **404**          | NOT FOUND   | Si la factura no existe              |
-      tags: 
-        - Factura
+      tags:
+        - '✏ Factura concreta'
       operationId: grupo_94_AOS_get
       responses:
         '200':
@@ -127,8 +130,8 @@ paths:
         '404':
           $ref: '#/components/responses/Response_404'
     options:
-      tags: 
-        - Factura
+      tags:
+        - '✏ Factura concreta'
       summary: Proporciona la lista de los métodos HTTP soportados por esta ruta.
       description: Devuelve una cabecera `Allow` con la lista de métodos HTTP soportados (separados por comas).
       operationId: grupo_94_AOS_options
@@ -139,9 +142,9 @@ paths:
             Allow:
               $ref: '#/components/headers/Allow'
     put:
-      tags: 
-        - Factura
-      summary: Modifica una factura identificada por su `facturaId`, pasándole como parámetro una nueva lista de trabajos terminados
+      tags:
+        - '✏ Factura concreta'
+      summary: Modifica una factura identificada por su `idFactura`, pasándole como parámetro una nueva lista de trabajos terminados
       description:  |
         La siguiente tabla define los códigos de estado que puede devolver este endpoint
         | Status Code | Descripción         | Motivo                                    |
@@ -173,18 +176,18 @@ paths:
         | **204**          | NO CONTENT  | La factura existía y ha sido eliminado    |
         | **404**          | NOT FOUND   | La factura no existe                      |
       tags:
-        - Factura
+        - '✏ Factura concreta'
       operationId: grupo_94_AOS_delete
       responses:
         '204':
           description: Factura eliminada &lt;Cuerpo de la respuesta vacío&gt;
         '404':
           $ref: '#/components/responses/Response_404'
-          
+
   /factura/findByIdCliente:
     get:
       tags:
-        - 'Factura'
+        - '🔍 Búsqueda facturas'
       summary: Obtiene todas las facturas de un cliente
       parameters:
         - $ref: '#/components/parameters/idCliente'
@@ -210,17 +213,17 @@ paths:
                   facturas:
                     description: array de facturas
                     type: array
-                    items: 
+                    items:
                       $ref: '#/components/schemas/Factura'
 
         404:
           $ref: '#/components/responses/Response_404'
-          
+
   /factura/findByRangoFechas:
     get:
-     #Ej:/open/api/factura/findByRangoFechas?inicio=2022-10-11&final=2023-10-11'
+      #Ej:/open/api/factura/findByRangoFechas?inicio=2022-10-11&final=2023-10-11'
       tags:
-        - 'Factura'
+        - '🔍 Búsqueda facturas'
       summary: Obtiene todas las facturas realizadas entre un rango de fechas
       parameters:
         - $ref: '#/components/parameters/fechaInicio'
@@ -247,17 +250,17 @@ paths:
                   facturas:
                     description: array de facturas
                     type: array
-                    items: 
+                    items:
                       $ref: '#/components/schemas/Factura'
 
         404:
           $ref: '#/components/responses/Response_404'
-          
+
   /factura/findByRangoImportes:
     get:
-     #Ej:/open/api/factura/findByRangoImportes?minimo=100&maximo=500'
+      #Ej:/open/api/factura/findByRangoImportes?minimo=100&maximo=500'
       tags:
-        - 'Factura'
+        - '🔍 Búsqueda facturas'
       summary: Obtiene todas las facturas cuyo importe total se encuentre entre un rango minimo y maximo
       parameters:
         - $ref: '#/components/parameters/importeMinimo'
@@ -269,6 +272,7 @@ paths:
         | ------------| ------------| -----------------------------------|
         | **200**     | OK          | Hay facturas del cliente solicitado|
         | **404**     | NOT FOUND   | No hay ninguna factura             |
+
       operationId: grupo_94_AOS_getByRangoImportes
       responses:
         200:
@@ -284,14 +288,12 @@ paths:
                   facturas:
                     description: array de facturas
                     type: array
-                    items: 
+                    items:
                       $ref: '#/components/schemas/Factura'
 
         404:
           $ref: '#/components/responses/Response_404'
-          
-    
-  
+
 # Definición de componentes #
 components:
   schemas:
@@ -463,7 +465,7 @@ components:
                   rel: lista de todos los trabajos
                 self:
                   href: api/v1/trabajo/1234
-                  rel: obtenerFactura modificarFactura eliminarFactura
+                  rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
             - idTrabajo: 1890
               idVehiculo: "WDDDJ72X97A116339"
               idCliente: 1333
@@ -475,8 +477,15 @@ components:
                   rel: lista de todos los trabajos
                 self:
                   href: api/v1/trabajo/1890
-                  rel: obtenerFactura modificarFactura eliminarFactura
+                  rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
           importe: 300
+          links:
+            parent:
+              href: api/v1/factura
+              rel: lista de todas las facturas
+            self:
+              href: api/v1/factura/7898
+              rel: obtenerFactura modificarFactura eliminarFactura
         - idFactura: 7
           idCliente: 444
           fecha: "2022-05-01"
@@ -492,8 +501,15 @@ components:
                   rel: lista de todos los trabajos
                 self:
                   href: api/v1/trabajo/1234
-                  rel: obtenerFactura modificarFactura eliminarFactura
+                  rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
           importe: 150
+          links:
+            parent:
+              href: api/v1/factura
+              rel: lista de todas las facturas
+            self:
+              href: api/v1/factura/7
+              rel: obtenerFactura modificarFactura eliminarFactura
           
     response-http-404:
       value:

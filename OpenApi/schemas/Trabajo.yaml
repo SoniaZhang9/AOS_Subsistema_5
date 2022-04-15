@@ -49,4 +49,4 @@ Trabajo:
         rel: lista de todos los trabajos
       self:
         href: api/v1/trabajo/1234
-        rel: obtenerFactura modificarFactura eliminarFactura
+        rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
