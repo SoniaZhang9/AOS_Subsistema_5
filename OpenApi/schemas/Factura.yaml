@@ -1,0 +1,71 @@
+Factura:
+  type: object
+  description: factura de todos los trabajos terminados, solicitados por un cliente
+  properties:
+      idFactura:
+        type: integer
+        format: int64
+        description: Id factura
+        readOnly: true
+      idCliente:
+        type: integer
+        format: int32
+        description: Id cliente
+        readOnly: true
+      fecha:
+        type: string
+        format: "date"
+      trabajos:
+        type: array
+        description: trabajos que incluye la factura
+        items:
+          $ref: '#/components/schemas/Trabajo'
+      importe:
+        type: number
+        description: importe total
+        readOnly: true
+      links:
+        description: Enlaces de relación
+        type: object
+        properties:
+          parent:
+            $ref: './Link.yaml#/Link'
+          self:
+            $ref: './Link.yaml#/Link'
+  example:
+    idFactura: 7898
+    idCliente: 1333
+    fecha: "2022-10-01"
+    trabajos: 
+      - idTrabajo: 1234
+        idVehiculo: "WDDDJ72X97A116339"
+        idCliente: 1333
+        descripcion: "Cambio de ruedas"
+        estadoTrabajo: "terminado"
+        links:
+          trabajos: 
+            href: api/v1/trabajo
+            rel: lista de todos los trabajos
+          self:
+            href: api/v1/trabajo/1234
+            rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
+      - idTrabajo: 1890
+        idVehiculo: "WDDDJ72X97A116339"
+        idCliente: 1333
+        descripcion: "Trabajo sobre el sistema de carga"
+        estadoTrabajo: "terminado"
+        links:
+          trabajos: 
+            href: api/v1/trabajo
+            rel: lista de todos los trabajos
+          self:
+            href: api/v1/trabajo/1890
+            rel: obtenerFactura modificarFactura eliminarFactura
+    importe: 300
+    links:
+      parent:
+        href: api/v1/factura
+        rel: lista de todas las facturas
+      self:
+        href: api/v1/factura/7898
+        rel: obtenerFactura modificarFactura eliminarFactura
