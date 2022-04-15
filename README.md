@@ -6,5 +6,5 @@ POST de factura va a necesitar `clienteId` y un array de `trabajos`. Esta decisi
 La lógica de comprobación que todos los trabajos solicitados por un cliente están terminados y la posterior llamada a este subsistema enviando los datos mencionados, se encargará otro sistema. <br /> <br/>
 - Desde el punto de vista del usuario, querrá visualizar en una factura, **todos los detalles de los trabajos correspondientes**. Por ello, se ha considerado que en el esquema `factura` contenga una lista de trabajos con el esquema completo de `trabajo`, en vez de un único identificador de trabajo. <br/>
 - Se ha especificado endpoints para `búsqueda de facturas` por cliente, rango de fecha y rango de importe total 
-### DOCUMENTACIÓN DE LA ESPECIFICACIÓN
+### Documentación de la especificación
 https://app.swaggerhub.com/apis-docs/SoniaZhang9/PracticaAOS-Subsistema-5/1.0.0 
