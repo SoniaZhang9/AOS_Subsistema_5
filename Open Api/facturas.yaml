@@ -21,6 +21,8 @@ servers:
 tags:
   - name: 'Factura'
     description: Factura de los clientes por los trabajos realizados
+  - name: 'Trabajo'
+    description: Trabajo solicitado por un cliente
   
 paths:
   /factura:
@@ -40,40 +42,125 @@ paths:
                   facturas:
                     description: array de facturas
                     type: array
-                    items:
-                      $ref: '#/components/schemas/Factura'
-                  examples:
-                    facturasExamples:
-                      $ref: '#/components/examples/facturas'
+                    items: 
+                      $ref: '#/components/schemas/ctura'
+              examples:
+                facturasExamples:
+                  $ref: '#/components/examples/facturas'
           
 
 # Definición de componentes #
 components:
   schemas:
     Factura:
-      $ref: './schemas/Factura.yaml#/Factura'
-    HTTP_Problem:
-      $ref: './schemas/HTTP_Problem.yaml#/HTTP_Problem'
+      # FICHERO SEPARADO $ref: './schemas/Factura.yaml#/Factura'
+      type: object
+      description: factura de todos los trabajos terminados, solicitados por un cliente
+      properties:
+          idFactura:
+            type: integer
+            format: int64
+            description: Id factura
+            readOnly: true
+          idCliente:
+            type: integer
+            format: int32
+            description: Id cliente
+            readOnly: true
+          trabajos:
+            type: array
+            description: trabajos que incluye la factura
+            items:
+              $ref: "#/components/schemas/Trabajo
+          importe:
+            type: number
+            description: importe total
+            readOnly: true
+          links:
+            description: Enlaces de relación
+            type: object
+            properties:
+              parent:
+                  #FICHERO SEPARA $ref: './Link.yaml#/Link'
+                $ref: '#/components/schemas/Link'  
+              self:
+                  #FICHERO SEPA $ref: './Link.yaml#/Link'
+                $ref: '#/components/schemas/Link'
+                    
+                    
+    Trabajo:
+      type: object
+      description: Trabajo de mantenimiento de un vehiculo
+      properties:
+        idTrabajo:
+          type: integer
+          format: int32
+          description: ID de trabajo
+          readOnly: true
+        idVehiculo:
+          type: string
+          format: VIN
+          description: VIN del vehículo sobre el que se reliza el trabajo
+          readOnly: true
+        idCliente:
+          description: ID del cliente propietario del vehículo
+          readOnly: true
+          type: integer
+          format: int32
+        descripcion:
+          type: string
+          description: Descripción del trabajo que se realiza
+        estadoTrabajo:
+          description: Posibles estados -> creado, planificado, iniciado, terminado
+          type: string
+          enum:
+          - creado
+          - planificado
+          - iniciado
+          - terminado
+        links:
+          description: Enlaces de relación
+          type: object
+          properties:
+            trabajos:
+              #NUEVO fichero $ref: './Link.yaml#/Link'
+              $ref: '#/components/schemas/Link' 
+            self:
+              #NUEVO fichero $ref: './Link.yaml#/Link'
+              $ref: '#/components/schemas/Link' 
+
+    Link:
+        type: object
+        description: Enlace de relación
+        properties:
+            href:
+              description: URL del enlace
+              type: string
+              format: url
+              x-faker: internet.url
+            rel:
+              description: Relación del documento enlazado con el actual. Contiene una lista de tipos de enlaces separados por espacio.
+              type: string
+              x-faker: lorem.words
+      
   headers:
     ETag:
       description: Entity Tag (identificador único proporcionado para validación de caché)
       schema:
         type: string
-        pattern: "[0-9a-f]*"
+        pattern: [0-9a-f]*
         # https://github.com/marak/Faker.js#api-methods
         x-faker: random.uuid
-        example:
-          33a64df551425fcc
+        example: 33a64df551425fcc
     Allow:
       description: Lista de métodos HTTP soportados
       schema:
         type: string
-      example: GET,DELETE,PUT,OPTIONS
+        example: GET,DELETE,PUT,OPTIONS
     Location:
       description: '`URI` del nuevo recurso'
       schema:
         type: string
         format: uri
         x-faker: internet.url
-        example:
-          https://example.com/api/v1/factura/1398
+        example: https://example.com/api/v1/factura/1398
