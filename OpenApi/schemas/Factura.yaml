@@ -44,10 +44,10 @@ Factura:
         estadoTrabajo: "terminado"
         links:
           trabajos: 
-            href: api/v1/trabajo
+            href: https://example.com/api/v1/trabajo
             rel: lista de todos los trabajos
           self:
-            href: api/v1/trabajo/1234
+            href: https://example.com/api/v1/trabajo/1234
             rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
       - idTrabajo: 1890
         idVehiculo: "WDDDJ72X97A116339"
@@ -56,16 +56,16 @@ Factura:
         estadoTrabajo: "terminado"
         links:
           trabajos: 
-            href: api/v1/trabajo
+            href: https://example.com/api/v1/trabajo
             rel: lista de todos los trabajos
           self:
-            href: api/v1/trabajo/1890
+            href: https://example.com/api/v1/trabajo/1890
             rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
     importe: 300
     links:
       parent:
-        href: api/v1/factura
+        href: https://example.com/api/v1/factura
         rel: lista de todas las facturas
       self:
-        href: api/v1/factura/7898
+        href: https://example.com/api/v1/factura/7898
         rel: obtenerFactura modificarFactura eliminarFactura
