@@ -19,7 +19,7 @@ Factura:
         type: array
         description: trabajos que incluye la factura
         items:
-          $ref: '#/components/schemas/Trabajo'
+          $ref: './Trabajo.yaml#/Trabajo'
       importe:
         type: number
         description: importe total
