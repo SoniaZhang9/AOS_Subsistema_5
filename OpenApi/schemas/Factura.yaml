@@ -17,9 +17,9 @@ Factura:
         format: "date"
       trabajos:
         type: array
-        description: trabajos que incluye la factura
+        description: listado de trabajos
         items:
-          $ref: './Trabajo.yaml#/Trabajo'
+          $ref: './Link.yaml#/Link'
       importe:
         type: number
         description: importe total
@@ -37,30 +37,12 @@ Factura:
     idCliente: 1333
     fecha: "2022-10-01"
     trabajos: 
-      - idTrabajo: 1234
-        idVehiculo: "WDDDJ72X97A116339"
-        idCliente: 1333
-        descripcion: "Cambio de ruedas"
-        estadoTrabajo: "terminado"
-        links:
-          trabajos: 
-            href: https://example.com/api/v1/trabajo
-            rel: lista de todos los trabajos
-          self:
-            href: https://example.com/api/v1/trabajo/1234
-            rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
-      - idTrabajo: 1890
-        idVehiculo: "WDDDJ72X97A116339"
-        idCliente: 1333
-        descripcion: "Trabajo sobre el sistema de carga"
-        estadoTrabajo: "terminado"
-        links:
-          trabajos: 
-            href: https://example.com/api/v1/trabajo
-            rel: lista de todos los trabajos
-          self:
-            href: https://example.com/api/v1/trabajo/1890
-            rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
+      - href: https://example.com/api/v1/trabajo/1111
+        rel: trabajo
+      - href: https://example.com/api/v1/trabajo/1112
+        rel: trabajo
+      - href: https://example.com/api/v1/trabajo/1113
+        rel: trabajo
     importe: 300
     links:
       parent:

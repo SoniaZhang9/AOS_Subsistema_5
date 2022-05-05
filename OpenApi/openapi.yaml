@@ -298,9 +298,7 @@ paths:
 components:
   schemas:
     Factura:
-      $ref: './schemas/Factura.yaml#/Factura'   
-    Trabajo: 
-      $ref: './schemas/Trabajo.yaml#/Trabajo'     
+      $ref: './schemas/Factura.yaml#/Factura'      
     HTTP_Problem:
       $ref: './schemas/HTTP_Problem.yaml#/HTTP_Problem'
       
@@ -405,9 +403,9 @@ components:
                 description: Id cliente
               trabajos:
                 type: array
-                description: trabajos terminados que incluye la factura
+                description: listado de trabajos
                 items:
-                  $ref: '#/components/schemas/Trabajo'
+                  $ref: './schemas/Link.yaml#/Link'
 
     facturaUpdate:
       description: 'Información de actualización de una `Factura`'
@@ -423,7 +421,7 @@ components:
                 type: array
                 description: nueva lista de trabajos terminados, pudiendo contener tanto trabajos ya existentes en la factura como nuevas
                 items:
-                  $ref: '#/components/schemas/Trabajo'
+                  $ref: './schemas/Link.yaml#/Link'
 
   responses:        
     Response_404:
@@ -454,30 +452,12 @@ components:
           idCliente: 1333
           fecha: "2022-10-01"
           trabajos: 
-            - idTrabajo: 1234
-              idVehiculo: "WDDDJ72X97A116339"
-              idCliente: 1333
-              descripcion: "Cambio de ruedas"
-              estadoTrabajo: "terminado"
-              links:
-                trabajos: 
-                  href: api/v1/trabajo
-                  rel: lista de todos los trabajos
-                self:
-                  href: api/v1/trabajo/1234
-                  rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
-            - idTrabajo: 1890
-              idVehiculo: "WDDDJ72X97A116339"
-              idCliente: 1333
-              descripcion: "Trabajo sobre el sistema de carga"
-              estadoTrabajo: "terminado"
-              links:
-                trabajos: 
-                  href: api/v1/trabajo
-                  rel: lista de todos los trabajos
-                self:
-                  href: api/v1/trabajo/1890
-                  rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
+            - href: https://example.com/api/v1/trabajo/1111
+              rel: trabajo
+            - href: https://example.com/api/v1/trabajo/1112
+              rel: trabajo
+            - href: https://example.com/api/v1/trabajo/1113
+              rel: trabajo
           importe: 300
           links:
             parent:
@@ -490,18 +470,12 @@ components:
           idCliente: 444
           fecha: "2022-05-01"
           trabajos: 
-            - idTrabajo: 12
-              idVehiculo: "WDDDJ72X97A186389"
-              idCliente: 444
-              descripcion: "Cambio de ruedas"
-              estadoTrabajo: "terminado"
-              links:
-                trabajos: 
-                  href: api/v1/trabajo
-                  rel: lista de todos los trabajos
-                self:
-                  href: api/v1/trabajo/1234
-                  rel: obtenerTrabajo modificarTrabajo eliminarTrabajo
+            - href: https://example.com/api/v1/trabajo/1131
+              rel: trabajo
+            - href: https://example.com/api/v1/trabajo/1132
+              rel: trabajo
+            - href: https://example.com/api/v1/trabajo/1133
+              rel: trabajo
           importe: 150
           links:
             parent:
@@ -526,3 +500,4 @@ components:
         status: 422
         detail: Falta alguno de los atributos obligatorios (idCliente, trabajos)
         instance: about:blank
+
